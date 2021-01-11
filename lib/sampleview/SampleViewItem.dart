@@ -4,12 +4,19 @@ import 'package:flutter_firebase_crud_imp/utils/CustomColors.dart';
 
 class SampleView {
 
+  static TextStyle getBoldAndFontSize18Text(){
+    return TextStyle(
+      fontWeight: FontWeight.bold,
+      color: Colors.pink,
+    );
+  }
+
   static Widget getSampleItemView(){
     return Card(
+      elevation: 6.0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(16.0)),
       ),
-      color: Colors.pinkAccent,
       margin: EdgeInsets.all(8.0),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -20,12 +27,42 @@ class SampleView {
               Row(
                 children: <Widget>[
                   Expanded(child: Text(
-                    "Your Name:"
+                    "User Name"
                   ),
                     flex: 1,
                   ),
                   Expanded(child: Text(
-                      "Your Name:"
+                      "Mobile No"
+                  ),
+                    flex: 1,
+                  ),
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  SizedBox(
+                    width: 16.0,
+                  ),
+                  Expanded(
+                    child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.people
+                      ),
+                    SizedBox(
+                      width: 6.0,
+                    ),
+                    Text(
+                    "Md Sirajul Islam",
+                      style: SampleView.getBoldAndFontSize18Text(),
+                    ),
+                    ],
+                  ),
+                    flex: 1,
+                  ),
+                  Expanded(child: Text(
+                      "+8801521315259",
+                    style: SampleView.getBoldAndFontSize18Text(),
                   ),
                     flex: 1,
                   ),
@@ -34,26 +71,12 @@ class SampleView {
               Row(
                 children: <Widget>[
                   Expanded(child: Text(
-                      "Your Name:"
+                      "Position"
                   ),
                     flex: 1,
                   ),
                   Expanded(child: Text(
-                      "Your Name:"
-                  ),
-                    flex: 1,
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(child: Text(
-                      "Your Name:"
-                  ),
-                    flex: 1,
-                  ),
-                  Expanded(child: Text(
-                      "Your Name:"
+                      "Department"
                   ),
                     flex: 1,
                   ),
@@ -61,13 +84,18 @@ class SampleView {
               ),
               Row(
                 children: <Widget>[
+                  SizedBox(
+                    width: 16.0,
+                  ),
                   Expanded(child: Text(
-                      "Your Name:"
+                      "Intern",
+                    style: SampleView.getBoldAndFontSize18Text(),
                   ),
                     flex: 1,
                   ),
                   Expanded(child: Text(
-                      "Your Name:"
+                      "Banking Solution",
+                    style: SampleView.getBoldAndFontSize18Text(),
                   ),
                     flex: 1,
                   ),
