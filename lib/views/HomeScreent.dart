@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_crud_imp/database/ContactDatabase.dart';
 import 'package:flutter_firebase_crud_imp/sampleview/SampleViewItem.dart';
 import 'package:flutter_firebase_crud_imp/utils/CustomColors.dart';
 
@@ -8,6 +9,7 @@ import '../sampleview/SampleViewItem.dart';
 import '../sampleview/SampleViewItem.dart';
 
 class HomeScreen extends StatelessWidget {
+
   List<Widget> widgets = [
     SampleView.getSampleItemView(),
     SampleView.getSampleItemView()
@@ -15,6 +17,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
+
     return MaterialApp(
       theme: ThemeData(
         primaryColor: Colors.white,
