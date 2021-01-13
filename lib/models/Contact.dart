@@ -1,6 +1,7 @@
 
 import 'dart:collection';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:floor/floor.dart';
 
 @entity
@@ -20,6 +21,8 @@ class Contact{
   Contact(this.userId, this.userName, this.userDept, this.userAddress,
       this.userMobile);
 
+
+
   Map<String, dynamic> toMap(){
     Map<String,dynamic> hashedMap = HashMap();
     hashedMap[USER_ID] = this.userId;
@@ -29,6 +32,10 @@ class Contact{
     hashedMap[USER_MOBILE] = this.userMobile;
 
     return hashedMap;
+  }
+
+  static Contact fromMap(DocumentSnapshot snapshot){
+    return Contact(snapshot[USER_ID], snapshot[USER_NAME], snapshot[USER_DEPT], snapshot[USER_ADDRESS], snapshot[USER_MOBILE]);
   }
 
 }

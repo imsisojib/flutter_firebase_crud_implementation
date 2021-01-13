@@ -41,7 +41,7 @@ class SampleView {
     );
   }
 
-  static Widget getSampleItemView() {
+  static Widget getSampleItemView(String userName, String userDept, String userMobile, String userAddress) {
     return Card(
       elevation: 6.0,
       shape: RoundedRectangleBorder(
@@ -79,8 +79,9 @@ class SampleView {
                           width: 6.0,
                         ),
                         Text(
-                          "Md Sirajul Islam",
+                          userName,
                           style: SampleView.getBoldAndFontSize18Text(),
+
                         ),
                       ],
                     ),
@@ -94,7 +95,7 @@ class SampleView {
                           width: 6.0,
                         ),
                         Text(
-                          "+8801521315259",
+                          userMobile,
                           style: SampleView.getBoldAndFontSize18Text(),
                         ),
                       ],
@@ -128,7 +129,7 @@ class SampleView {
                           width: 6.0,
                         ),
                         Text(
-                          "Intern",
+                          userDept,
                           style: SampleView.getBoldAndFontSize18Text(),
                         ),
                       ],
@@ -143,7 +144,7 @@ class SampleView {
                           width: 6.0,
                         ),
                         Text(
-                          "Banking Solutions",
+                          userDept,
                           style: SampleView.getBoldAndFontSize18Text(),
                         ),
                       ],
@@ -160,7 +161,7 @@ class SampleView {
                   ),
                   Expanded(
                     child: Text(
-                    "12/A Haldi, BGB HQ, Pilkhana, Dhaka-1205, Dhaka",
+                    userAddress,
                   ),
                     flex: 1,
                   )

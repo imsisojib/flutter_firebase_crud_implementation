@@ -5,6 +5,9 @@ import 'package:flutter_firebase_crud_imp/database/FirebaseDatabase.dart';
 import 'package:flutter_firebase_crud_imp/models/Contact.dart';
 import 'package:flutter_firebase_crud_imp/sampleview/SampleViewItem.dart';
 import 'package:flutter_firebase_crud_imp/utils/CustomColors.dart';
+import 'package:flutter_firebase_crud_imp/views/CallsScreen.dart';
+import 'package:flutter_firebase_crud_imp/views/ContactsScreen.dart';
+import 'package:flutter_firebase_crud_imp/views/MessagesScreen.dart';
 
 import '../sampleview/SampleViewItem.dart';
 import '../sampleview/SampleViewItem.dart';
@@ -12,17 +15,17 @@ import '../sampleview/SampleViewItem.dart';
 
 class HomeScreen extends StatelessWidget {
 
-  List<Widget> widgets = [
+  /*List<Widget> widgets = [
     SampleView.getSampleItemView(),
     SampleView.getSampleItemView()
-  ];
+  ];*/
 
 
   @override
   Widget build(BuildContext context) {
 
-    Contact contact = Contact(FirebaseDatabase.getDocumentIdByChildReference(FirebaseDatabase.DB_CONTACTS),"Md Sirajul Islam Sojib", "Banking Solution", "Pilkhana, Jigatola, Dhaka", "01521315259");
-    FirebaseDatabase.createOrUpdateContact(contact.toMap());
+    /*Contact contact = Contact(FirebaseDatabase.getDocumentIdByChildReference(FirebaseDatabase.DB_CONTACTS),"Md Sirajul Islam Sojib", "Banking Solution", "Pilkhana, Jigatola, Dhaka", "01521315259");
+    FirebaseDatabase.createOrUpdateContact(contact.toMap());*/
 
 
     return MaterialApp(
@@ -51,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                                 fontFamily: 'Pacifico'),
                           ),
                           Text(
-                            'Callbook',
+                            'Contacts',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: Colors.pink,
@@ -89,23 +92,14 @@ class HomeScreen extends StatelessWidget {
               body: TabBarView(
                 children: [
                   Container(
-                      child: ListView.builder(
-                          itemCount: 20,
-                          itemBuilder: (context, index) {
-                            return SampleView.getSampleItemView();
-                          })),
+                      child: ContactsScreen(),
+                  ),
                   Container(
-                      child: ListView.builder(
-                          itemCount: 20,
-                          itemBuilder: (context, index) {
-                            return SampleView.getSampleCallItemView();
-                          })),
+                      child: CallsScreen()
+                  ),
                   Container(
-                      child: ListView.builder(
-                          itemCount: 20,
-                          itemBuilder: (context, index) {
-                            return SampleView.getSampleMessageItemView();
-                          })),
+                      child: MessagesScreen(),
+                  ),
                 ],
               ),
             ),
