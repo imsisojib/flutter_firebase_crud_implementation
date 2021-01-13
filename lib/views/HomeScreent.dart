@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_crud_imp/database/ContactDatabase.dart';
+import 'package:flutter_firebase_crud_imp/database/FirebaseDatabase.dart';
+import 'package:flutter_firebase_crud_imp/models/Contact.dart';
 import 'package:flutter_firebase_crud_imp/sampleview/SampleViewItem.dart';
 import 'package:flutter_firebase_crud_imp/utils/CustomColors.dart';
 
@@ -15,9 +17,12 @@ class HomeScreen extends StatelessWidget {
     SampleView.getSampleItemView()
   ];
 
+
   @override
   Widget build(BuildContext context) {
 
+    Contact contact = Contact(FirebaseDatabase.getDocumentIdByChildReference(FirebaseDatabase.DB_CONTACTS),"Md Sirajul Islam Sojib", "Banking Solution", "Pilkhana, Jigatola, Dhaka", "01521315259");
+    FirebaseDatabase.createOrUpdateContact(contact.toMap());
 
 
     return MaterialApp(
