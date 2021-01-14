@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_firebase_crud_imp/utils/CustomColors.dart';
 
 import '../utils/CustomColors.dart';
@@ -13,35 +14,36 @@ class SampleView {
     );
   }
 
-  static Icon getCallReceivedIcon(){
+  static Icon getCallReceivedIcon() {
     return Icon(
       Icons.call,
       color: Colors.green[300],
     );
   }
 
-  static Icon getCallMissedIcon(){
+  static Icon getCallMissedIcon() {
     return Icon(
       Icons.call,
       color: Colors.pink[300],
     );
   }
 
-  static Icon getMessageReceivedIcon(){
+  static Icon getMessageReceivedIcon() {
     return Icon(
       Icons.message,
       color: Colors.green[300],
     );
   }
 
-  static Icon getMessageReadIcon(){
+  static Icon getMessageReadIcon() {
     return Icon(
       Icons.message,
       color: Colors.white70,
     );
   }
 
-  static Widget getSampleItemView(String userName, String userDept, String userMobile, String userAddress) {
+  static Widget getSampleItemView(
+      String userName, String userDept, String userMobile, String userAddress) {
     return Card(
       elevation: 6.0,
       shape: RoundedRectangleBorder(
@@ -51,131 +53,130 @@ class SampleView {
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Container(
-          width: double.infinity,
-          child: Column(
-            children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text("User Name"),
-                    flex: 1,
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.people,
+                                    color: Colors.pink,
+                                  ),
+                                  SizedBox(
+                                    width: 6.0,
+                                  ),
+                                  Text(
+                                    "User Name",
+                                  ),
+                                ],
+                              ),
+                              Text(userName,
+                                style: SampleView.getBoldAndFontSize18Text(),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.local_fire_department,
+                                    color: Colors.pink,
+                                  ),
+                                  SizedBox(
+                                    width: 6.0,
+                                  ),
+                                  Text(
+                                    "Department",
+                                  ),
+                                ],
+                              ),
+                              Text(userDept,
+                                  style: SampleView.getBoldAndFontSize18Text()),
+                            ],
+                          ),
+                        )),
+                    Expanded(
+                        flex: 1,
+                        child: Container(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.mobile_friendly,
+                                    color: Colors.pink,
+                                  ),
+                                  SizedBox(
+                                    width: 6.0,
+                                  ),
+                                  Text(
+                                    "Mobile No",
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                userMobile,
+                                style: SampleView.getBoldAndFontSize18Text(),
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.account_box,
+                                    color: Colors.pink,
+                                  ),
+                                  SizedBox(
+                                    width: 6.0,
+                                  ),
+                                  Text(
+                                    "Position",
+                                  ),
+                                ],
+                              ),
+                              Text(
+                                userDept,
+                                style: SampleView.getBoldAndFontSize18Text(),
+                              ),
+                            ],
+                          ),
+                        )),
+                  ],
+                ),
+                Container(
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.pin_drop,
+                        color: Colors.pink,
+                      ),
+                      Text(userAddress,
+                          style: TextStyle(
+                            color: Colors.pinkAccent,
+                            fontSize: 12.0,
+                          ))
+                    ],
                   ),
-                  Expanded(
-                    child: Text("Mobile No"),
-                    flex: 1,
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 16.0,
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.people,color: Colors.pink,),
-                        SizedBox(
-                          width: 6.0,
-                        ),
-                        Text(
-                          userName,
-                          style: SampleView.getBoldAndFontSize18Text(),
-
-                        ),
-                      ],
-                    ),
-                    flex: 1,
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.mobile_friendly,color: Colors.pink,),
-                        SizedBox(
-                          width: 6.0,
-                        ),
-                        Text(
-                          userMobile,
-                          style: SampleView.getBoldAndFontSize18Text(),
-                        ),
-                      ],
-                    ),
-                    flex: 1,
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Text("Position"),
-                    flex: 1,
-                  ),
-                  Expanded(
-                    child: Text("Department"),
-                    flex: 1,
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  SizedBox(
-                    width: 16.0,
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.border_style,color: Colors.pink,),
-                        SizedBox(
-                          width: 6.0,
-                        ),
-                        Text(
-                          userDept,
-                          style: SampleView.getBoldAndFontSize18Text(),
-                        ),
-                      ],
-                    ),
-                    flex: 1,
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: <Widget>[
-                        Icon(Icons.comment_bank_rounded,color: Colors.pink,),
-                        SizedBox(
-                          width: 6.0,
-                        ),
-                        Text(
-                          userDept,
-                          style: SampleView.getBoldAndFontSize18Text(),
-                        ),
-                      ],
-                    ),
-                    flex: 1,
-                  ),
-                ],
-              ),
-              Row(
-                children: <Widget>[
-                  Icon(
-                    Icons.pin_drop,
-                    color: Colors.pink,
-                  ),
-                  Expanded(
-                    child: Text(
-                    userAddress,
-                  ),
-                    flex: 1,
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
+                )
+              ],
+            )),
       ),
     );
   }
 
   static Widget getSampleCallItemView() {
-
     return Card(
       elevation: 6.0,
       shape: RoundedRectangleBorder(
@@ -192,7 +193,7 @@ class SampleView {
                 children: <Widget>[
                   Expanded(
                     child: Text(
-                        "Sirajul Islam Sojib",
+                      "Sirajul Islam Sojib",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                       ),
@@ -201,7 +202,7 @@ class SampleView {
                   ),
                   Expanded(
                     child: Text(
-                        "10-01-2021 10:30 am",
+                      "10-01-2021 10:30 am",
                       style: TextStyle(
                         color: Colors.black45,
                         fontSize: 12.0,

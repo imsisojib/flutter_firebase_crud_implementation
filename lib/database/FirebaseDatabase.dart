@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_firebase_crud_imp/listeners/OnDataDownloadListener.dart';
+import 'package:flutter_firebase_crud_imp/listeners/OnUploadListener.dart';
 import 'package:flutter_firebase_crud_imp/models/Contact.dart';
 import 'package:flutter_firebase_crud_imp/sampleview/SampleViewItem.dart';
+import 'package:flutter_firebase_crud_imp/utils/DialogBox.dart';
+import 'package:flutter_firebase_crud_imp/utils/DialogBox.dart';
 
 class FirebaseDatabase {
   static final String DB_CONTACTS = "Contacts";
@@ -13,31 +16,33 @@ class FirebaseDatabase {
   }
 
   static Future<void> createOrUpdateContact(
-      Map<String, dynamic> contact) async {
+      Map<String, dynamic> contact, OnUploadListener listener) async {
     await _db
         .collection(DB_CONTACTS)
         .document(contact['document'])
         .setData(contact, merge: true)
-        .whenComplete(() => {
-
-          print("Upload Successful"),
-
+        .then((value) => {
+            if(listener!=null) listener.onUploaded()
           }
-        );
+        )
+        .catchError(() {
+          if(listener!=null) listener.onFailedToUpload();
+          });
   }
 
   static void getAllContacts(OnDataDownloadListener<Contact> listener){
-      _db.collection(DB_CONTACTS).getDocuments().then((value) => {
-        value.documents.forEach((element) {
-          try{
-            listener.onDownloadedData(Contact.fromMap(element));
-          }catch(e){
-            print("getAllContacts(): map to object parsing error.");
-          }
-        }),
-        listener.onDownloadFinished()
 
-      });
+    //non-realime
+    _db.collection(DB_CONTACTS).getDocuments().then((value) => {
+      value.documents.forEach((element) {
+        try {
+          listener.onDownloadedData(Contact.fromMap(element));
+        } catch (e) {
+          print("getAllContacts(): map to object parsing error.");
+        }
+      }),
+      listener.onDownloadFinished()
+    });
   }
 
   /*static Widget getTasks() {

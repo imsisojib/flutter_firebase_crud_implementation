@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_crud_imp/database/FirebaseDatabase.dart';
+import 'package:flutter_firebase_crud_imp/listeners/OnUploadListener.dart';
 import 'package:flutter_firebase_crud_imp/models/Contact.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class DialogBox {
 
-  static void showContactDialogForm(BuildContext context) {
+  static void showContactDialogForm(BuildContext context,OnUploadListener listener) {
 
     String name,mobile,dept,address;
     FocusNode nameFocusNode = FocusNode();
@@ -128,9 +129,13 @@ class DialogBox {
                 if (nameValidate && mobileValidate && deptValidate && addressValidate){
                   //upload to database
                   Contact contact = Contact(FirebaseDatabase.getDocumentIdByChildReference(FirebaseDatabase.DB_CONTACTS), name, dept, address, mobile);
-                  FirebaseDatabase.createOrUpdateContact(contact.toMap());
+                  FirebaseDatabase.createOrUpdateContact(contact.toMap(),listener);
+                  Navigator.pop(context);
+                  DialogBox.showLoadingDialogBox(context, "Saving Contact");
+
 
                 }else {
+                  Navigator.pop(context);
                   Fluttertoast.showToast(
                       msg: "Invalid Information!",
                       toastLength: Toast.LENGTH_SHORT,
@@ -142,11 +147,37 @@ class DialogBox {
                   );
                 }
 
-                Navigator.pop(context);
+
 
               })
         ],
       ),
     );
   }
+
+  static Future<void> showLoadingDialogBox(BuildContext context,String tittleString){
+    return showDialog(
+        context: context,
+        barrierDismissible: false,
+        child: AlertDialog(
+          title: Text(
+              tittleString
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              CircularProgressIndicator(
+                value: 10.0,
+                backgroundColor: Colors.pink,
+
+              ),
+              Text(
+                  "Please wait..."
+              )
+            ],
+          ),
+        )
+    );
+  }
+
 }

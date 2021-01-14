@@ -8,6 +8,7 @@ import 'package:flutter_firebase_crud_imp/utils/CustomColors.dart';
 import 'package:flutter_firebase_crud_imp/views/CallsScreen.dart';
 import 'package:flutter_firebase_crud_imp/views/ContactsScreen.dart';
 import 'package:flutter_firebase_crud_imp/views/MessagesScreen.dart';
+import 'package:flutter_firebase_crud_imp/views/TestScreen.dart';
 
 import '../sampleview/SampleViewItem.dart';
 import '../sampleview/SampleViewItem.dart';

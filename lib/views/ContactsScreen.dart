@@ -2,9 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_crud_imp/database/FirebaseDatabase.dart';
 import 'package:flutter_firebase_crud_imp/listeners/OnDataDownloadListener.dart';
+import 'package:flutter_firebase_crud_imp/listeners/OnUploadListener.dart';
 import 'package:flutter_firebase_crud_imp/models/Contact.dart';
 import 'package:flutter_firebase_crud_imp/sampleview/SampleViewItem.dart';
 import 'package:flutter_firebase_crud_imp/utils/DialogBox.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class ContactsScreen extends StatefulWidget{
   @override
@@ -13,7 +15,7 @@ class ContactsScreen extends StatefulWidget{
   }
 }
 
-class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloadListener<Contact>{
+class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloadListener<Contact>,OnUploadListener{
 
   List<Widget> contactItems = [];
   List<Contact> contacts = [];
@@ -29,10 +31,13 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: Scaffold(
-        body: Column(
-          children: contactItems,
+        body: SingleChildScrollView(
+          child: Column(
+            children: contactItems,
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.pink,
@@ -42,7 +47,7 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
           ),
           onPressed: (){
             //show dialog form
-            DialogBox.showContactDialogForm(context);
+            DialogBox.showContactDialogForm(context,this);
           },
         ),
       ),
@@ -51,7 +56,7 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
 
   @override
   void dispose() {
-
+    super.dispose();
   }
 
   @override
@@ -62,6 +67,8 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
         contactItems.add(SampleView.getSampleItemView(element.userName,element.userDept,element.userMobile,element.userAddress));
       });
     });
+
+    //Navigator.pop(context);
 
 
   }
@@ -79,6 +86,36 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
   @override
   void onDownloadedDataList(List<Contact> lists) {
     // TODO: implement onDownloadedDataList
+  }
+
+  @override
+  void onFailedToUpload() {
+    Navigator.pop(context);
+    Fluttertoast.showToast(
+        msg: "Failed to save contact!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+  }
+
+  @override
+  void onUploaded() {
+    // TODO: implement onUploaded
+    Navigator.pop(context);
+    Fluttertoast.showToast(
+        msg: "Saved contact.",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
+
   }
 
 }
