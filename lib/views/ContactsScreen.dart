@@ -20,6 +20,27 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
   List<Widget> contactItems = [];
   List<Contact> contacts = [];
 
+  Widget _updateListView(){
+    return ListView.builder(
+      itemCount: contacts.length,
+      itemBuilder: (context,index){
+        Contact contact = contacts[index];
+        if(contact == null) return Container();
+        return GestureDetector(
+            child: SampleView.getSampleItemView(contact.userName, contact.userDept, contact.userMobile, contact.userAddress),
+          onTap: () => {
+              _showUpdateDialog(index),
+            print("Position: $index"),
+          },
+        );
+      },
+    );
+  }
+
+  void _showUpdateDialog(int index){
+    DialogBox.showContactUpdateDialogForm(context, this, contacts[index]);
+  }
+
   @override
   void initState() {
     /** Retrieve Data From Server*/
@@ -34,11 +55,7 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
 
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            children: contactItems,
-          ),
-        ),
+        body: _updateListView(),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.pink,
           child: Icon(
@@ -64,13 +81,11 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
     contactItems.clear();
     contacts.forEach((element) {
       setState(() {
-        contactItems.add(SampleView.getSampleItemView(element.userName,element.userDept,element.userMobile,element.userAddress));
+        _updateListView();
       });
     });
 
     //Navigator.pop(context);
-
-
   }
 
   @override
@@ -92,7 +107,7 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
   void onFailedToUpload() {
     Navigator.pop(context);
     Fluttertoast.showToast(
-        msg: "Failed to save contact!",
+        msg: "Failed!",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,
@@ -107,7 +122,7 @@ class _ContactScreenState extends State<ContactsScreen> implements OnDataDownloa
     // TODO: implement onUploaded
     Navigator.pop(context);
     Fluttertoast.showToast(
-        msg: "Saved contact.",
+        msg: "Successful.",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.CENTER,
         timeInSecForIosWeb: 1,

@@ -19,30 +19,38 @@ class FirebaseDatabase {
       Map<String, dynamic> contact, OnUploadListener listener) async {
     await _db
         .collection(DB_CONTACTS)
-        .document(contact['document'])
+        .document(contact[Contact.USER_ID])
         .setData(contact, merge: true)
-        .then((value) => {
-            if(listener!=null) listener.onUploaded()
-          }
-        )
+        .then((value) => {if (listener != null) listener.onUploaded()})
         .catchError(() {
-          if(listener!=null) listener.onFailedToUpload();
-          });
+      if (listener != null) listener.onFailedToUpload();
+    });
   }
 
-  static void getAllContacts(OnDataDownloadListener<Contact> listener){
+  static Future<void> deleteContact(
+      Map<String, dynamic> contact, OnUploadListener listener) async {
+    await _db
+        .collection(DB_CONTACTS)
+        .document(contact[Contact.USER_ID])
+        .delete()
+        .then((value) => {if (listener != null) listener.onUploaded()})
+        .catchError(() {
+      if (listener != null) listener.onFailedToUpload();
+    });
+  }
 
+  static void getAllContacts(OnDataDownloadListener<Contact> listener) {
     //non-realime
     _db.collection(DB_CONTACTS).getDocuments().then((value) => {
-      value.documents.forEach((element) {
-        try {
-          listener.onDownloadedData(Contact.fromMap(element));
-        } catch (e) {
-          print("getAllContacts(): map to object parsing error.");
-        }
-      }),
-      listener.onDownloadFinished()
-    });
+          value.documents.forEach((element) {
+            try {
+              listener.onDownloadedData(Contact.fromMap(element));
+            } catch (e) {
+              print("getAllContacts(): map to object parsing error.");
+            }
+          }),
+          listener.onDownloadFinished()
+        });
   }
 
   /*static Widget getTasks() {
